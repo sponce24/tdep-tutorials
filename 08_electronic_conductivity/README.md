@@ -13,6 +13,16 @@ For the description of inputs and more information please follow the link:
 - [Quantum ESPRESSO inputs](https://epwdoc.gitlab.io/source/doc/Inputs.html)
 - [EPW inputs](https://epwdoc.gitlab.io/source/doc/Inputs.html)
 
+## Preliminary calculations with Quantum ESPRESSO
+
+First, go to the folder `example_cBN`
+
+Then download the standard boron and nitrogen PBE pseudopotential from [PseudoDojo](https://www.pseudo-dojo.org/) in upf format and renamed them `B-PBE.upf` and `N-PBE.upf`
+   ```bash
+   cd 1_qe/
+   mpirun -np 4 pw.x -in scf.in | tee scf.out
+   ```
+
 
 ## Suggested reading
 - [[Ponce2020] S. Poncé, W. Li, S. Reichardt and F. Giustino, Reports on Progress in Physics **83**, 036501 (2020)](https://iopscience.iop.org/article/10.1088/1361-6633/ab6a43)
