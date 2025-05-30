@@ -20,7 +20,7 @@ In this example we are going to calculate the drift and Hall hole carrier mobili
 The drift mobility is obtained with:
 
 $$
-\mu^{\mathrm{d}}_{\alpha\beta} = \frac{-1}{V^{\mathrm{uc}}n^{\mathrm{c}}} \sum_n  \int  \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} \partial_{E_{\beta}} f_{n\mathbf{k}}
+\mu_{\alpha\beta}^{\mathrm{d}} = \frac{-1}{V^{\mathrm{uc}}n^{\mathrm{c}}} \sum_{n}  \int  \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} \partial_{E_{\beta}} f_{n\mathbf{k}}
 $$
 
 where the out of equilibrium occupations are obtained by solving the BTE:
@@ -38,13 +38,13 @@ $$
 A common approximation to Eq.~\eqref{eq:eqBTE} is called the self-energy relaxation time approximation (SERTA) and consists in neglecting the second term in the right-hand of the equation which gives:
 
 $$
-\mu_{\alpha\beta}^{\mathrm{SERTA}} = \frac{-e}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n  \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}}  v_{n\mathbf{k}\alpha} v_{n\mathbf{k}\beta} \tau_{n\mathbf{k}}.
+\mu_{\alpha\beta}^{\mathrm{SERTA}} = \frac{-e}{V^{\mathrm{uc}}n^{\text{c}}} \sum_{n}  \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}}  v_{n\mathbf{k}\alpha} v_{n\mathbf{k}\beta} \tau_{n\mathbf{k}}.
 $$
 
 The the low-field phonon-limited carrier mobility in the presence of a small finite magnetic field **B** is given by:
 
 $$
-\mu_{\alpha\beta}(B_\gamma) = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} [\partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) - \partial_{E_{\beta}} f_{n\mathbf{k}}],
+\mu_{\alpha\beta}(B_\gamma) = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_{n} \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} [\partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) - \partial_{E_{\beta}} f_{n\mathbf{k}}],
 $$
 
 again solving the BTE with finite (small) magnetic field:
@@ -68,7 +68,7 @@ where $\hat{\mathbf{B}}$ is the direction of the magnetic field.
 
 ## Preliminary calculations with Quantum ESPRESSO
 
-For this tutorial, you will need to compile [Quantum ESPRESSO](https://www.quantum-espresso.org/) v7.4 and we will assume that the following executables are in your path: `pw.x, ph.x, epw.x`.
+For this tutorial, you will need to compile [Quantum ESPRESSO](https://www.quantum-espresso.org/) v7.4 and we will assume that the following executables are in your path: `pw.x, ph.x, q2r.x, matdyn.x, epw.x`.
 
 First, go to the folder `example_cBN`
 
@@ -95,6 +95,23 @@ Note that the input variable `epsil=.true.` computes the macroscopic dielectric 
    python3 pp.py
    ```
 The script will ask you to enter the prefix used for the calculation. In this case enter `bn`. The script will create a new folder called `save` that contains the dvscf potential files, pattern files, and dynamical matrices on the IBZ.
+
+## Create the IFC and interpolate the phonons along high-symmetry path
+
+1. Do a Fourier transform from the dynamical matrices into real space to produce `bn444.fc.xml` then interpolate on a high-symmetry lines to get the phonons
+   ```bash
+   q2r.x < q2r.in | tee q2r.out
+   ```
+
+2. Interpolate the real space IFC in Bloch space along high-symmetry lines
+   ```bash
+   matdyn.x < matdyn.in | tee matdyn.out
+   ```
+
+3. Use gnuplot (or any other tools) to show the resulting phonon dispersion
+   ```bash
+   gnuplot gnuplot.in
+   ```
 
 
 ## Suggested reading
