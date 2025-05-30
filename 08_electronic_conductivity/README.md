@@ -50,15 +50,12 @@ $$
 again solving the BTE with finite (small) magnetic field:
 
 $$
-\Big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) =
+\Big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) =
 $$
 
-$$
- e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu})
-$$
 
 $$
-\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
+\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
 $$
 
 The Hall factor and Hall mobility are then obtained as:
@@ -158,7 +155,43 @@ where `output_format 6` is a new Quantum ESPRESSO output format (**you need TDEP
    cd iter.000/samples/sample.00001/
    ```
 
+5. Then you should copy your `scf.in` input and merge it with the `qe_conf0001` file produced in the previous step.
+Importantly the calculation of forces should be enabled in the input. We provide the file `scf.in` for reference.
+   ```bash
+   pw.x -np 4 -in scf.in | tee scf.out
+   ```
 
+6. Extract forces from QE output
+In principle you can extract yourself the forces and atomic coordinate from the scf.out, following the convention for TDEP given in [HERE](https://tdep-developers.github.io/tdep/files/).
+
+However, it is simpler to use:
+   ```bash
+   pip install https://github.com/flokno/tools.tdep/archive/refs/tags/v0.0.5.zip
+   ```
+
+You can then just run the extraction script:
+   ```bash
+   cd ../../
+   tdep_parse_output samples/*/scf.out --format espresso-out
+   cp ../infile.ucposcar .
+   cp ../infile.ssposcar .
+   cp ../infile.lotosplitting .
+   ```
+
+7. Create the file with the **q**-point path `infile.qpoints_dispersion` that we also provide for reference.
+
+You can then extract the force constant
+   ```bash
+   tdep/bin/extract_forceconstants  --polar -rc2 4 | tee extract_forceconstants.log
+   cp outfile.forceconstant infile.forceconstant
+   tdep/bin/phonon_dispersion_relations -rp
+   ```
+which should give you the TDEP phonon dispersion after a single iteration with a single configuration:
+
+<p>
+        <img src=".assets/tdep.png" width="600"/>
+  <figcaption><center><em>Fig. 2: Anharmonic phonon dispersion of c-BN using TDEP at 600 K</em></center></figcaption>
+</p>
 
 
 
