@@ -69,8 +69,20 @@ $$
 \wedge
 $$
 
+So
+
+$$
+(v_{n\mathbf{k}} \wedge \mathbf{B}) \cdot \nabla_{\mathbf{k}}
+$$
+
+works but not
+
 $$
 (\mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
+$$
+
+$$
+(\boldsymbol{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
 $$
 
 $$
