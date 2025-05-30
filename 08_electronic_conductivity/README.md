@@ -153,7 +153,7 @@ where `output_format 6` is a new Quantum ESPRESSO output format (**you need TDEP
 5. Then you should copy your `scf.in` input and merge it with the `qe_conf0001` file produced in the previous step.
 Importantly the calculation of forces should be enabled in the input. We provide the file `scf.in` for reference.
    ```bash
-   pw.x -np 4 -in scf.in | tee scf.out
+   mpirun -np 4 pw.x -in scf.in | tee scf.out
    ```
 
 6. Extract forces from QE output
@@ -187,6 +187,42 @@ which should give you the TDEP phonon dispersion after a single iteration with a
         <img src=".assets/tdep.png" width="600"/>
   <figcaption><center><em>Fig. 2: Anharmonic phonon dispersion of c-BN using TDEP at 600 K</em></center></figcaption>
 </p>
+
+
+In practice you then need to re-use the IFC to generate new iterations with more configurations until convergence.
+
+Note that with the new version of TDEP, the `extract_forceconstants` also produce the IFC in `xml` format for Quantum ESPRESSO, called `outfile.qe_fc.xml`.
+
+8. Compute the phonon dispersion along high-symmetry lines
+
+   ```bash
+   matdyn.x < matdyn.in | tee matdyn.out
+   gnuplot gnuplot.in
+   ```
+which should give you
+<p>
+        <img src=".assets/tdep-matdyn.png" width="600"/>
+  <figcaption><center><em>Fig. 3: Anharmonic phonon dispersion of c-BN using TDEP at 600 K using matdyn.x</em></center></figcaption>
+</p>
+which you can verify is the same as Fig. 2, validating the conversion.
+
+
+## Compute transport properties with EPW
+
+Once you have computed the effective harmonic potential for a given temperature, you can use it within EPW.
+
+For this, you can follow the EPW tutorial on mobility, accessible [HERE](https://drive.google.com/file/d/1_Ozk6up3hxLCaZu_LfnP8Gyd4DCKgTfr/view?usp=drive_link).
+
+The only thing to do in order to read external IFC, is to add the `lifc = .true.` in all your EPW input files.
+
+**Note**: the IFC file must be in the same directory as the one you are running your EPW calculations on and must be named `ifc.q2r.xml`. Therefore rename it with
+   ```bash
+   cp outfile.qe_fc.xml ifc.q2r.xml
+   ```
+
+
+
+
 
 
 
