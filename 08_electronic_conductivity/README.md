@@ -58,6 +58,22 @@ $$
 $$
 
 $$
+×
+$$
+
+$$
+\times
+$$
+
+$$
+\cross
+$$
+
+$$
+\wedge
+$$
+
+$$
 (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) · \nabla_{\mathbf{k}}
 $$
 
