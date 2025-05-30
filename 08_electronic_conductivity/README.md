@@ -20,24 +20,23 @@ In this example we are going to calculate the drift and Hall hole carrier mobili
 The drift mobility is obtained with:
 
 $$
-\mu^{\mathrm{d}}_{\alpha\beta} = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n  \int  \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} \, v_{n\mathbf{k}\alpha} \partial_{E_{\beta}} f_{n\mathbf{k}}
+\mu^{\mathrm{d}}_{\alpha\beta} = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n  \int  \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} \partial_{E_{\beta}} f_{n\mathbf{k}}
 $$
 
 where the out of equilibrium occupations are obtained by solving the BTE:
 
 $$
-\partial_{E_{\beta}} f_{n\mathbf{k}} = e v_{n\mathbf{k}\beta} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar}  \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega_{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2
- \Big[(n_{\mathbf{q}\nu}+1-f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}}  + \hbar \omega_{\mathbf{q}\nu} )
- +  (n_{\mathbf{q} \nu}+f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}}  - \hbar \omega_{\mathbf{q}\nu} ) \Big]  \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}.
+\partial_{E_{\beta}} f_{n\mathbf{k}} = e v_{n\mathbf{k}\beta} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar}  \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2 \Big[(n_{\mathbf{q}\nu}+1-f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}}  + \hbar \omega_{\mathbf{q}\nu} ) +  (n_{\mathbf{q} \nu}+f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}}  - \hbar \omega_{\mathbf{q}\nu} ) \Big]  \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}.
 $$
 
 The scattering rate is defined as:
 
 $$
-\tau_{n\mathbf{k}}^{-1} \equiv  \frac{2\pi}{\hbar} \sum_{m\nu} \!\int\! \frac{d^3q}{\Omega_{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k,q})|^2 \big[ (n_{\mathbf{q}\nu} +1 - f_{m\mathbf{k+q}}^0 )   \delta( \varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) +  (n_{\mathbf{q}\nu} +   f_{m\mathbf{k+q}}^0 )\delta( \varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}} +  \hbar \omega_{\mathbf{q}\nu}) \big].
+\tau_{n\mathbf{k}}^{-1} \equiv  \frac{2\pi}{\hbar} \sum_{m\nu} \int \frac{d^3q}{\Omega_{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k,q})|^2 \big[ (n_{\mathbf{q}\nu} +1 - f_{m\mathbf{k+q}}^0 )   \delta( \varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) +  (n_{\mathbf{q}\nu} +   f_{m\mathbf{k+q}}^0 )\delta( \varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}} +  \hbar \omega_{\mathbf{q}\nu}) \big].
 $$
 
 A common approximation to Eq.~\eqref{eq:eqBTE} is called the self-energy relaxation time approximation (SERTA) and consists in neglecting the second term in the right-hand of the equation which gives:
+
 $$
 \mu_{\alpha\beta}^{\mathrm{SERTA}} = \frac{-e}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n  \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}}  v_{n\mathbf{k}\alpha} v_{n\mathbf{k}\beta} \tau_{n\mathbf{k}}.
 $$
@@ -45,21 +44,19 @@ $$
 The the low-field phonon-limited carrier mobility in the presence of a small finite magnetic field \textbf{B} is given by:
 
 $$
-\mu_{\alpha\beta}(B_\gamma) = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} \, v_{n\mathbf{k}\alpha} [\partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) - \partial_{E_{\beta}} f_{n\mathbf{k}}],
+\mu_{\alpha\beta}(B_\gamma) = \frac{-1}{V^{\mathrm{uc}}n^{\text{c}}} \sum_n \int \frac{\mathrm{d}^3 k}{\Omega^{\mathrm{BZ}}} v_{n\mathbf{k}\alpha} [\partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) - \partial_{E_{\beta}} f_{n\mathbf{k}}],
 $$
 
 again solving the BTE with finite (small) magnetic field:
 
 $$
-\Big[ 1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} ({\bf v}_{n\mathbf{k}} \times {\bf B}) \cdot \nabla_{\bf k} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2
-  \Big[(n_{\mathbf{q}\nu} + 1 -\!f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu} )
- +  (n_{\mathbf{q} \nu}+f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}}-\varepsilon_{m\mathbf{k}+\mathbf{q}}  - \hbar \omega_{\mathbf{q}\nu} ) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_\gamma).
+\Big[ 1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} ({\bf v}_{n\mathbf{k}} \times {\bf B}) \cdot \nabla_{\bf k} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f^0_{n\mathbf{k}}}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu}+f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}}  - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_\gamma).
 $$
 
 The Hall factor and Hall mobility are then obtained as:
 
 $$
-r_{\alpha\beta}(\hat{\mathbf{B}}) \equiv  \lim_{\mathbf{B} \rightarrow 0} \sum_{\delta\epsilon} \frac{[\mu_{\alpha\delta}^{\rm d}]^{-1} \, \mu_{\delta\epsilon}(\mathbf{B}) \, [\mu_{\epsilon\beta}^{\rm d}]^{-1}}{|\mathbf{B}|}  \mu_{\alpha\beta}^{\rm Hall}(\hat{\mathbf{B}}) = \sum_{\gamma} \mu_{\alpha\gamma}^{\rm d} r_{\gamma\beta}(\hat{\mathbf{B}}),
+r_{\alpha\beta}(\hat{\mathbf{B}}) \equiv \lim_{\mathbf{B} \rightarrow 0} \sum_{\delta\epsilon} \frac{[\mu_{\alpha\delta}^{\rm d}]^{-1} \mu_{\delta\epsilon}(\mathbf{B}) [\mu_{\epsilon\beta}^{\rm d}]^{-1}}{|\mathbf{B}|} \mu_{\alpha\beta}^{\rm Hall}(\hat{\mathbf{B}}) = \sum_{\gamma} \mu_{\alpha\gamma}^{\rm d} r_{\gamma\beta}(\hat{\mathbf{B}}),
 $$
 
 where $\hat{\mathbf{B}}$ is the direction of the magnetic field.
@@ -71,11 +68,22 @@ For this tutorial, you will need to compile [Quantum ESPRESSO](https://www.quant
 First, go to the folder `example_cBN`
 
 Then download the standard boron and nitrogen PBE pseudopotential from [PseudoDojo](https://www.pseudo-dojo.org/) in upf format and renamed them `B-PBE.upf` and `N-PBE.upf`
+and place them in the `example_cBN` folder.
+
+1. Perform a self-consistent calculation
    ```bash
    cd 1_qe/
    mpirun -np 4 pw.x -in scf.in | tee scf.out
    ```
+Note that in practice the **k**-point grid needs to be fairly large in order to get converged dielectric function and Born effective charges during the following phonon calculation.
 
+2. Compute the phonon using DFPT on a coarse 4x4x4 **q**-point grid
+   ```bash
+   mpirun -np 4 ph.x -in ph.in | tee ph.out
+   ```
+Note that the input variable `epsil=.true.` computes the macroscopic dielectric constant in non-metallic systems. If you add `.xml` after the name of the dynamical matrix file, it will produce the data in XML format (preferred). The variable `fildvscf` is required as it generates the perturbed potential. It is also important that `tr2_ph` is very small as it control the threshold for the self-consistent first-order perturbed wavefunction.
+
+**Task**: locate in `ph.out` the IBZ q-point grid, dielectric function and Born effective charge tensor. Note that denser **k**-point grids are required to obtain converged quantities.
 
 ## Suggested reading
 - [[Ponce2020] S. Poncé, W. Li, S. Reichardt and F. Giustino, Reports on Progress in Physics **83**, 036501 (2020)](https://iopscience.iop.org/article/10.1088/1361-6633/ab6a43)
