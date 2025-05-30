@@ -50,11 +50,11 @@ $$
 again solving the BTE with finite (small) magnetic field:
 
 $$
-\Big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) =
+\Big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) =
 $$
 
 $$
-\big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) =
+\big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}} \big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) =
 $$
 
 $$
@@ -66,15 +66,11 @@ $$
 $$
 
 $$
-\cross
-$$
-
-$$
 \wedge
 $$
 
 $$
-(\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) · \nabla_{\mathbf{k}}
+(\mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
 $$
 
 $$
@@ -94,7 +90,7 @@ $$
 $$
 
 $$
-\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
+\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} ( \mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B} ) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_{\gamma}) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
 $$
 
 The Hall factor and Hall mobility are then obtained as:
