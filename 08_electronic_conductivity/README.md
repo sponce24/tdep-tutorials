@@ -78,15 +78,15 @@ $$
 works but not
 
 $$
-(\mathbf{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
+(\mathbf{v}_{n\, \mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
 $$
 
 $$
-(\boldsymbol{v}_{n\mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
+(\boldsymbol{v}_{n\, \mathbf{k}} \wedge \mathbf{B}) · \nabla_{\mathbf{k}}
 $$
 
 $$
-(\mathbf{v}_{n\mathbf{k}}
+(\mathbf{v}_{n \mathbf{k}}
 $$
 
 $$
