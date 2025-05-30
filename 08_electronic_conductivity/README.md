@@ -50,7 +50,15 @@ $$
 again solving the BTE with finite (small) magnetic field:
 
 $$
-\Big[ 1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
+\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) =
+$$
+
+$$
+ e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu})
+$$
+
+$$
+\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
 $$
 
 The Hall factor and Hall mobility are then obtained as:
@@ -116,9 +124,20 @@ You should obtain a dispersion similar to:
 
 <p>
         <img src=".assets/qe.png" width="600"/>
-  <figcaption><center><em>Harmonic phonon dispersion of c-BN using Quantum ESPRESSO and DFPT</em></center></figcaption>
+  <figcaption><center><em>Fig. 1: Harmonic phonon dispersion of c-BN using Quantum ESPRESSO and DFPT</em></center></figcaption>
 </p>
 
+## TDEP anharmonic calculations
+
+1. Create the primitive and supercell inputs. For this you need to create the `infile.ucposcar` from the Quantum ESPRESSO calculation made in the step above. We provide the file for you in this tutorial.
+**Note**: the lattice parameter in `infile.ucposcar` **must be** expressed in Angstrom.
+
+  Then execute:
+   ```bash
+   cd ../2_tdep
+   tdep/bin/generate_structure -na 10 --output_format 6
+   ```
+where `output_format 6` is a new Quantum ESPRESSO output format (**you need TDEP v25.04 or higher**) and it should generate a file called `outfile.supercell_qe`.
 
 
 ## Suggested reading
