@@ -50,7 +50,7 @@ $$
 again solving the BTE with finite (small) magnetic field:
 
 $$
-\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) =
+\Big[1 - \frac{e}{\hbar} \tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) =
 $$
 
 $$
@@ -58,7 +58,7 @@ $$
 $$
 
 $$
-\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} \times \mathbf{B}) \cdot \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
+\Big[1 - \frac{e}{\hbar}\tau_{n\mathbf{k}} (\mathbf{v}_{n\mathbf{k}} × \mathbf{B}) · \nabla_{\mathbf{k}} \Big] \partial_{E_{\beta}} f_{n\mathbf{k}}(B_\gamma) = e v_{n\mathbf{k}\beta} \frac{\partial f_{n\mathbf{k}}^0}{\partial \varepsilon_{n\mathbf{k}}} \tau_{n\mathbf{k}} + \frac{2\pi \tau_{n\mathbf{k}}}{\hbar} \sum_{m\nu} \int \frac{\mathrm{d}^3 q}{\Omega^{\mathrm{BZ}}} | g_{mn\nu}(\mathbf{k},\mathbf{q})|^2  \Big[(n_{\mathbf{q}\nu} + 1 - f_{n\mathbf{k}}^0)\delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} + \hbar \omega_{\mathbf{q}\nu}) + (n_{\mathbf{q} \nu} + f_{n\mathbf{k}}^0) \delta(\varepsilon_{n\mathbf{k}} - \varepsilon_{m\mathbf{k} + \mathbf{q}} - \hbar \omega_{\mathbf{q}\nu}) \Big] \partial_{E_{\beta}} f_{m\mathbf{k}+\mathbf{q}}(B_{\gamma}).
 $$
 
 The Hall factor and Hall mobility are then obtained as:
@@ -138,6 +138,28 @@ You should obtain a dispersion similar to:
    tdep/bin/generate_structure -na 10 --output_format 6
    ```
 where `output_format 6` is a new Quantum ESPRESSO output format (**you need TDEP v25.04 or higher**) and it should generate a file called `outfile.supercell_qe`.
+
+2. Create the LOTO file from the output of the QE ph.out file. We provide it in the file `infile.lotosplitting`
+
+3. Choose a temperature you want to study, we choose 600 K
+   ```bash
+   mkdir sampling.600K
+   cp outfile.ssposcar infile.ssposcar
+   cp infile.ssposcar sampling.600K/
+   cp infile.ucposcar sampling.600K/
+   cp infile.lotosplitting sampling.600K/
+   cd sampling.600K
+   ```
+
+4. Generate 1 configuration at 600 K. Since it is quantum, the temperature will not match perfectly.
+   ```bash
+   tdep/bin/canonical_configuration --quantum --maximum_frequency 20 --temperature 600 -n 1 --output_format 6
+   mkdir -p iter.000/samples/sample.00001/
+   cd iter.000/samples/sample.00001/
+   ```
+
+
+
 
 
 ## Suggested reading
